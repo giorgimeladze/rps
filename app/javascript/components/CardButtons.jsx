@@ -12,6 +12,8 @@ class CardButtons extends React.Component {
   }
 
   handleButtonClick = (value) => {
+    this.setState({ resultMessage: 'Waiting...', isHidden: false });
+  
     fetch(`/generate?chosed_item=${value}`)
       .then((response) => {
         if (response.ok) {
@@ -34,17 +36,18 @@ class CardButtons extends React.Component {
   render() {
     return (
       <div>
-        <h1>Choose an Option</h1>
-        <ThrowCard label="Rock" onClick={() => this.handleButtonClick('rock')} />
-        <ThrowCard label="Paper" onClick={() => this.handleButtonClick('paper')} />
-        <ThrowCard label="Scissors" onClick={() => this.handleButtonClick('scissors')} />
+        <div className='throw-card-container'>
+          <ThrowCard label="Rock" imageUrl="/Rock.png" onClick={() => this.handleButtonClick('rock')} />
+          <ThrowCard label="Paper" imageUrl="/Paper.png" onClick={() => this.handleButtonClick('paper')} />
+          <ThrowCard label="Scissors" imageUrl="/Scissors.png" onClick={() => this.handleButtonClick('scissors')} />
+        </div>
 
-        <div id="result" style={{ display: this.state.isHidden ? 'none' : 'block' }}>
+        <div id="result" style={{ display: this.state.isHidden ? 'none' : 'block' }} className='center-align'>
           <p>Computer chose {this.state.generatedThrow}</p>
           <p>{this.state.resultMessage}</p>
         </div>
       </div>
-    );
+    )
   }
 }
 
